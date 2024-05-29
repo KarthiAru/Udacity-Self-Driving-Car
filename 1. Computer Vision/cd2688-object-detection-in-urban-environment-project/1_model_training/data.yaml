@@ -1,0 +1,4 @@
+train: /home/ka/Documents/Projects/Self_Driving/cd2688-object-detection-in-urban-environment-project/data/yolo/train
+val: /home/ka/Documents/Projects/Self_Driving/cd2688-object-detection-in-urban-environment-project/data/yolo/val
+nc: 3
+names: ['vehicle','pedestrian','cyclist']

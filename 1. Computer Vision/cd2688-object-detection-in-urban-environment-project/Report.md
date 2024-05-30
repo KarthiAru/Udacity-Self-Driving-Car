@@ -134,12 +134,12 @@ Edge Cases:
 **segment-11718898130355901268_2300_000_2320_000_with_camera_labels_1.jpg** has the highest number of 6 cyclists annotations occupying 2.15% of the image by area.
 
 Object distribution:
-- Heatmap chart for every class shows how objects are frequently presented on images in the dataset facilitating detailed exploration and analysis of class annotations. This helps to quickly find outliers, images with an unusual number of objects. 
+- Heatmap chart for every class shows how objects are frequently presented on images in the dataset facilitating detailed exploration and analysis of class annotations. This helps to quickly find outliers, images with an unusual number of objects.
 - Images without annotation:
   - vehicles: 66
   - pedestrians: 944
   - cyclists: 1732
-  - all classes: 
+  - all classes: 43
 
 ![Object Distribution](figures/object-distribution.png)
 

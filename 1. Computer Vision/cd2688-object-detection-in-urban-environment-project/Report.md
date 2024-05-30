@@ -122,12 +122,15 @@ Edge Cases:
 - These images have an unusual number of objects or an abnormal class area.
 
 ![Image-1](figures/image-1.png)
+
 **segment-10072140764565668044_4060_000_4080_000_with_camera_labels_17.jpg** has highest number of 66 vehicle annotations occupying 33.39% of the image by area.
 
 ![Image-2](figures/image-2.png)
+
 **segment-11070802577416161387_740_000_760_000_with_camera_labels_3.jpg** has the highest number of 44 pedestrian annotations occupying 4.85% of the image by area.
 
 ![Image-3](figures/image-3.png)
+
 **segment-11718898130355901268_2300_000_2320_000_with_camera_labels_1.jpg** has the highest number of 6 cyclists annotations occupying 2.15% of the image by area.
 
 Object distribution:
@@ -148,9 +151,11 @@ Class sizes:
 Data Issues:
 
 ![Image-4](figures/image-4.png)
+
 **segment-11252086830380107152_1540_000_1560_000_with_camera_labels_6.jpg** has one pedestrian annotation that covers the entire image.
 
 ![Image-5](figures/image-5.png)
+
 These are few images with similar annotation issues for pedestrain class where the area is unusually high. The error seems to be in one specific segment **segment-11252086830380107152_1540_000_1560_000_with_camera_labels_?**
 
 ## Evaluation - Yolo

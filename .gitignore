@@ -164,3 +164,6 @@ cython_debug/
 libcarla-install/
 rpclib/
 Build/
+**/*.pkl
+**/*.pth
+**/*.tfrecord

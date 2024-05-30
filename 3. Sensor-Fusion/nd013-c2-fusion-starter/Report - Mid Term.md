@@ -5,7 +5,7 @@
 ### Intro
 In this project, we'll fuse measurements from LiDAR and camera and track vehicles over time. We'll be using real-world data from the Waymo Open Dataset, detect objects in 3D point clouds and apply an extended Kalman filter for sensor fusion and tracking.
 
-![Project Flowchart](figures/sf-project-diagram.png)
+![Project Flowchart](figures/mid-term/sf-project-diagram.png)
 A diagram of all the project pieces combined (both mid-term and final). The midterm project focuses on the Lidar sensor and the 3D Object Detection blocks.
 
 ### Setup
@@ -53,17 +53,17 @@ If a specific step into the list, pre-computed binary files will be loaded inste
 1.1. Visualize range image channels (ID_S1_EX1):
 
 In the Waymo Open dataset, lidar data is stored as a range image. Therefore, this task is about extracting two of the data channels within the range image, which are "range" and "intensity", and convert the floating-point data to an 8-bit integer value range. And finally the OpenCV library was used to stack the range and intensity image vertically and visualize it.
-![Range Image](figures/range-image.png)
+![Range Image](figures/mid-term/range-image.png)
 
 Identify vehicle features that appear as a stable feature on most vehicles
 
-![Range Image](figures/range-image-2.png)
+![Range Image](figures/mid-term/range-image-2.png)
 Here is clear that the tail lights, number plate are clearly visible on vehicles that are ahead. Other features like bumper, body, etc are visible on vehicles that are close by. Other objects like road surface appear pitch black. This indicates that the light reflect off of different surfaces return the light beam with varying intensities which can be observed in the lidar range image. Also colour of the vehicle seems to matter. Note the car circled in yellow, appears to have a darker body compared to others.
 
 1.2. Visualize lidar point-cloud (ID_S1_EX2):
 
 The goal of this task is to use the Open3D library to display the lidar point-cloud in a 3d viewer in order to develop a feel for the nature of lidar point-clouds. The output is a 3D image that can be translated and rotated. The mouse and keyboard controls are mentioned in the documentation here - https://www.open3d.org/docs/0.12.0/tutorial/visualization/visualization.html
-![PCL Image](figures/pcl-image.png)
+![PCL Image](figures/mid-term/pcl-image.png)
 
 Find and display examples of vehicles with varying degrees of visibility in the point-cloud
 
@@ -73,19 +73,19 @@ The following features are observed in general.
 - **Body Shape and Size**: The overall body shape can be identified, with the top line representing the roof and the sides indicating the doors and windows. The body shape helps distinguish different types of vehicles (e.g., sedan, SUV, hatchback).
 - **Spacing and Alignment**: The spacing between the wheels and their alignment provide additional information about the size and type of the vehicle. For instance, a larger distance between the front and rear wheels often indicates a longer vehicle, which could be a sedan or an SUV.
 
-![PCL Camera Image](figures/pcl-camera-image-1.png)
+![PCL Camera Image](figures/mid-term/pcl-camera-image-1.png)
 
 From this frame we can observe several features that distinguish the three cars - wheels, rounded front and rear ends and body shape.
 
-![PCL Camera Image](figures/pcl-camera-image-2.png)
+![PCL Camera Image](figures/mid-term/pcl-camera-image-2.png)
 
 From this frame you can observe the partial shape of the car passing in the opposite lane on the left and the SUV hauling a flat bed trailer.
 
-![PCL Camera Image](figures/pcl-camera-image-3.png)
+![PCL Camera Image](figures/mid-term/pcl-camera-image-3.png)
 
 From this frame you can observe that the flat bed trailer is only partially visible when the ego car is travelling beside it. This can be mistaken for empty space.
 
-![PCL Camera Image](figures/pcl-camera-image-4.png)
+![PCL Camera Image](figures/mid-term/pcl-camera-image-4.png)
 
 From this frame you can observe that the car1 is actually facing in the opposite direction to the flow of traffic and is seperated by the traffic cones. But it is hard to discern the direction from the point cloud. Also taller vehicles like trucks have a different bright colour which can be used to identify it. Also the car3 that is not visible in the camera feed is partially visible in the pcl image and it is difficult to discern the type of the vehicle from this.
 
@@ -94,17 +94,17 @@ From this frame you can observe that the car1 is actually facing in the opposite
 2.1. Convert sensor coordinates to BEV-map coordinates (ID_S2_EX1):
 
 The goal of this task is to perform the first step in creating a birds-eye view (BEV) perspective of the lidar point-cloud. Based on the (x,y)-coordinates in sensor space, computed the respective coordinates within the BEV coordinate space so that in subsequent tasks, the actual BEV map can be filled with lidar data from the point-cloud.
-![BEV Image](figures/bev-image.png)
+![BEV Image](figures/mid-term/bev-image.png)
 
 2.2. Compute intensity layer of the BEV map (ID_S2_EX2):
 
 The goal of this task is to fill the "intensity" channel of the BEV map with data from the point-cloud. Identified all points with the same (x,y)-coordinates within the BEV map and then assign the intensity value of the top-most lidar point to the respective BEV pixel. Also, normalized the resulting intensity image using percentiles, in order to make sure that the influence of outlier values (very bright and very dark regions) is sufficiently mitigated and objects of interest (e.g. vehicles) are clearly separated from the background.
-![BEV Image](figures/bev-intensity-image.png)
+![BEV Image](figures/mid-term/bev-intensity-image.png)
 
 2.3. Compute height layer of the BEV map (ID_S2_EX3):
 
 The goal of this task is to fill the "height" channel of the BEV map with data from the point-cloud. Use of the sorted and pruned point-cloud from the previous task and normalize the height in each BEV map pixel by the difference between max. and min. height which is defined in the configs.
-![BEV Image](figures/bev-height-image.png)
+![BEV Image](figures/mid-term/bev-height-image.png)
 
 **Section 3 : Model-based Object Detection in BEV Image**
 
@@ -116,7 +116,7 @@ The model-based detection of objects in lidar point-clouds using deep-learning i
 
 As the model input is a three-channel BEV map, the detected objects will be returned with coordinates and properties in the BEV coordinate space. Thus, before the detections can move along in the processing pipeline, they need to be converted into metric coordinates in vehicle space. This task is about performing this conversion such that all detections have the format [1, x, y, z, h, w, l, yaw], where 1 denotes the class id for the object type vehicle.
 
-![BEV Image](figures/detection-camera-bev-image.png)
+![BEV Image](figures/mid-term/detection-camera-bev-image.png)
 
 **Section 4 : Performance Evaluation for Object Detection**
 
@@ -134,4 +134,4 @@ After processing all the frames of a sequence, the performance of the object det
 
 I got the results as precision = 0.9438775510204082, recall = 0.75 for the sequence `training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord` and frames [0,200].
 
-![BEV Image](figures/detection-performance.png)
+![BEV Image](figures/mid-term/detection-performance.png)

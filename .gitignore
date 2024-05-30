@@ -168,3 +168,4 @@ Build/
 **/*.pth
 **/*.tfrecord
 eigen-3.3.7
+CMakeFiles
